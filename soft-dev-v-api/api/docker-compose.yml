@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: soft_dev_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: soft_dev_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      TZ: "UTC-4"
+    ports:
+      - 3131:3131
+    command: -p 3131
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: soft_dev_pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_LISTEN_PORT: 4141
+    ports:
+      - 4141:4141
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+
+volumes:
+  pgadmin-data:
+  postgres-data:
+  
