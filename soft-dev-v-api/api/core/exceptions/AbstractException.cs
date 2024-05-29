@@ -1,3 +1,5 @@
+using Handlers;
+
 public abstract class AbstractException : Exception
 {
   public new Exception InnerException { get; set; }

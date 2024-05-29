@@ -1,26 +1,42 @@
+using System.ComponentModel.DataAnnotations;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("[controller]")]
 public class StudentController : ControllerBase
 {
-  [HttpGet]
-  public async Task<IActionResult> Get()
+  private readonly IMediator _mediator;
+
+  public StudentController(IMediator mediator)
   {
-    // var i = 0;
-    // var j = 0;
-    // var x = i / j;
-    throw new TestingException();
-    var students = new List<Student> 
-    {
-      new Student 
-      { 
-        Id = Guid.NewGuid(),
-        Name = "Mario",
-        Lastname = "Carvajal",
-        Birthdate = DateTime.Now,
-      }
-    };
-    return Ok(students);
+    _mediator = mediator;
+  }
+
+  [HttpGet("IdStudent")]
+  public async Task<IActionResult> Get([Required] Guid idStudent)
+  {
+    var middle = new StudentMiddleData(idStudent);
+    var student = await _mediator.Send(middle);
+
+    return Ok(student);
+  }
+
+  [HttpPost]
+  public async Task<IActionResult> Post([FromBody] Student student)
+  {
+    return Ok();
+  }
+
+  [HttpPut]
+  public async Task<IActionResult> Put([FromBody] Student student)
+  {
+    return Ok();
+  }
+
+  [HttpDelete("{Id}")]
+  public async Task<IActionResult> Delete([Required] Guid id)
+  {
+    return Ok();
   }
 }

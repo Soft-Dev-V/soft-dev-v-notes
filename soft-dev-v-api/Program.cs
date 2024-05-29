@@ -1,3 +1,6 @@
+using System.Reflection;
+using Handlers;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +17,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<BaseContext>(options 
 	=> options.UseNpgsql(builder.Configuration.GetConnectionString("UniversityDb")));
+
+builder.Logging.AddLog4Net("log.config");
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+
+// builder.Services.AddMediatR(typeof(UniversityProfile).Assembly);
+// builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
 var app = builder.Build();
 

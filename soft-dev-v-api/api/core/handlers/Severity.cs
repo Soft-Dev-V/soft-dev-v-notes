@@ -1,3 +1,5 @@
+namespace Handlers;
+
 public enum Severity
 {
   DEBUG,
