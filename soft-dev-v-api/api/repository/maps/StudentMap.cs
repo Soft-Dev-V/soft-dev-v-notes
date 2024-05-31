@@ -13,5 +13,9 @@ public class StudentMap : IEntityTypeConfiguration<Student>
     builder.Property(p => p.Name);
     builder.Property(p => p.Lastname);
     builder.Property(p => p.Birthdate);
+
+    builder
+           .HasMany(p => p.Careers)
+           .WithMany(p => p.Students);
   }
 }

@@ -5,4 +5,5 @@ public class Student : IEntityBase
     public string Name { get; set; } = "";
     public string Lastname { get; set; } = "";
     public DateTime Birthdate { get; set; }
+    public IList<Career> Careers { get; set; }
 }

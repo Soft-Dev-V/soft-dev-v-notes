@@ -12,5 +12,9 @@ public class CareerMap : IEntityTypeConfiguration<Career>
 
     builder.Property(p => p.Name);
     builder.Property(p => p.Code);
+
+    builder
+           .HasMany(p => p.Students)
+           .WithMany(p => p.Careers);
   }
 }
