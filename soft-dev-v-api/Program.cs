@@ -1,4 +1,4 @@
-using System.Reflection;
+using System.Text.Json.Serialization;
 using Handlers;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -21,9 +21,16 @@ builder.Services.AddDbContext<BaseContext>(options
 builder.Logging.AddLog4Net("log.config");
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
+builder.Services.AddControllers()
+								.AddJsonOptions(x 
+										=> x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+
+// builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 // builder.Services.AddMediatR(typeof(UniversityProfile).Assembly);
 // builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
-builder.Services.AddMediatR(cfg=>cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(UniversityProfile).Assembly));
+
+builder.Services.AddAutoMapper(typeof(UniversityProfile).Assembly);
 
 var app = builder.Build();
 
