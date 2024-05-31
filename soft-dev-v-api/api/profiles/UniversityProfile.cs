@@ -1,4 +1,10 @@
-public class UniversityProfile 
+using AutoMapper;
+
+public class UniversityProfile : Profile
 {
-  
+  public UniversityProfile()
+  {
+    CreateMap<Student, StudentDTO>();
+		CreateMap<Career, CareerDTO>();
+  }
 }
