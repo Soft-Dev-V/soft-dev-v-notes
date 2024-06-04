@@ -16,8 +16,8 @@ public class CriticalException : AbstractException
     do
     {
       // TODO : LogMessage
-      LogHandler.Instance.Log(Severity, current.Message);
-      LogHandler.Instance.Log(Severity, current.StackTrace);
+      _logHandler.Log(Severity, current.Message);
+      _logHandler.Log(Severity, current.StackTrace);
       current = current.InnerException;
     } while (current != null);
   }

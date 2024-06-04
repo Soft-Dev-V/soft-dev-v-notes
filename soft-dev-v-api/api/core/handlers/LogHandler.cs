@@ -1,18 +1,18 @@
 using Handlers;
 using log4net;
 
-public class LogHandler
+public class LogHandler : ILogHandler
 {
-  private readonly ILog _logger;
-  private static LogHandler instance;
+  private ILog _logger;
+  // private static LogHandler instance;
 
-  public static LogHandler Instance => instance ?? (instance = new LogHandler());
+  // public static LogHandler Instance => instance ?? (instance = new LogHandler());
 
-  private LogHandler()
+  public LogHandler()
   {
     _logger = LogManager.GetLogger(typeof(LogHandler));
   }
-  
+
   public void Log(Severity severity, string message)
   {
     switch (severity)
@@ -33,5 +33,10 @@ public class LogHandler
         _logger.Fatal(message);
         break;
     }
+  }
+
+  public void Dispose()
+  {
+    _logger = null;
   }
 }

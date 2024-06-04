@@ -9,6 +9,6 @@ public class BussinessException : AbstractException
   public override void LogMessages()
   {
     // TODO : LogFriendly Message
-    LogHandler.Instance.Log(Severity, FriendlyMessage);
+    _logHandler.Log(Severity, FriendlyMessage);
   }
 }
